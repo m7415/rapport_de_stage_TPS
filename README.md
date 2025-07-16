@@ -30,19 +30,15 @@ rm -r Chapters/ main.* biblio.bib README.md
 |-------------------------|-------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `\title`                | Oui         | Indique le titre du rapport                                                                                                                                     |
 | `\subtitle`             | Oui         | Indique le sous titre du rapport                                                                                                                                |
-|-------------------------|-------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `\author`               | Oui         | Indique l'auteur (élève) du rapport                                                                                                                             |
 | `\filiere`              | Oui         | Indique la filière de l'élève                                                                                                                                   |
 | `\master`               | Oui         | Indique le master de l'élève                                                                                                                                    |
 | `\promo`                | Oui         | Indique la promotion à laquelle l'élève appartient                                                                                                              |
-|-------------------------|-------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `\nomentreprise`        | Oui         | Indique le nom de l'entreprise                                                                                                                                  |
 | `\logoentreprise`       | Oui         | Chemin vers le logo de l'entreprise                                                                                                                             |
 | `\tuteurentreprise`     | Oui         | Indique le nom du tuteur de l'élève au sein de l'entreprise                                                                                                     |
 | `\tuteurentreprisemail` | Oui         | Indique l'adresse mail du tuteur de l'élève au sein de l'entreprise                                                                                             |
 | `\trigrammemention`     | Oui         | Indique la chaine de caractère qui sera placée dans le coin bas gauche du document final                                                                        |
-|-------------------------|-------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `\tuteurecole`          | Non         | Indique le nom du tuteur de l'élève au sein de TPS. Valeur par défaut: `HABET Aldane`                                                                           |
 | `\tuteurecolemail`      | Non         | Indique le nom du tuteur de l'élève au sein de l'école. Valeur par défaut: `habed@unistra.fr`                                                                   |
 | `\academicyear`         | Non         | Indique l'année scolaire actuelle. La valeur par défaut est automatiquement calculée en fonction du mois actuel (< septembre) lors de la compilation du fichier |
-|-------------------------|-------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
