@@ -27,6 +27,21 @@
 \RequirePackage[backend=biber,style=numeric,sorting=ynt]{biblatex} %Imports biblatex package
 
 \RequirePackage{ragged2e} % justification au carré
+\RequirePackage{etoolbox}
+\RequirePackage{ifthen}
+
+\let\oldsection\section
+\RenewDocumentCommand{\section}{s o m}{%
+  \ifthenelse{\equal{#3}{Introduction}}{\pagenumbering{arabic}}{}
+  \IfBooleanTF{#1}
+    {\oldsection*{#3}} % starred section
+    {%
+      \IfNoValueTF{#2}
+        {\oldsection{#3}} % no optional arg
+        {\oldsection[#2]{#3}} % optional arg present
+    }%
+}
+
 
 %-------------------- Informations sur le rapport ----------------------
 
@@ -34,24 +49,57 @@
 \newcommand{\master}[1]{\renewcommand{\master}{#1}}
 \newcommand{\filiere}[1]{\renewcommand{\filiere}{#1}}
 
-\newcommand{\titre}[1]{\renewcommand{\titre}{#1}}
-\newcommand{\intitule}[1]{\renewcommand{\intitule}{#1}}
-
-\newcommand{\eleve}[1]{\renewcommand{\eleve}{#1}}
+\newcommand{\subtitle}[1]{\renewcommand{\subtitle}{#1}}
 
 \newcommand{\promo}[1]{\renewcommand{\promo}{#1}}
 
-\newcommand{\annee}[1]{\renewcommand{\annee}{#1}}
+%\newcommand{\annee}[1]{\renewcommand{\annee}{#1}}
+\providecommand{\tuteurecole}[1]{
+  \ifstrempty{#1}{
+    HABET Aldane
+  }{
+  \renewcommand{\tuteurecole}{#1}
+}
+}
 
-\newcommand{\tuteurecole}[1]{\renewcommand{\tuteurecole}{#1}}
+\providecommand{\tuteurecolemail}[1]{
+  \ifstrempty{#1}{
+    habed@unistra.fr
+    \@date
+  }{
+  \renewcommand{\tuteurecolemail}{#1}
+}
+}
+
+\providecommand{\academicyear}[1]{%
+  \ifstrempty{#1}{
+  \ifnum\month<9
+    \advance\year -1
+    \the\year\ -
+    \advance\year 1
+    \the\year
+  \else
+    \the\year\ -
+    \advance\year 1
+    \the\year
+  \fi
+  }{
+  \renewcommand{\academicyear}{#1}
+  }
+}
+
 \newcommand{\tuteurentreprise}[1]{\renewcommand{\tuteurentreprise}{#1}}
+\newcommand{\tuteurentreprisemail}[1]{\renewcommand{\tuteurentreprisemail}{#1}}
 
 \newcommand{\logoentreprise}[1]{\renewcommand{\logoentreprise}{#1}}
 \newcommand{\nomentreprise}[1]{\renewcommand{\nomentreprise}{#1}}
 
 \newcommand{\dates}[1]{\renewcommand{\dates}{#1}}
+%\newcommand{\linespacing}[1][1.5]{#1}
 
 %-------------------- Nouvelles commandes ----------------------
+
+
 
 % Formatte les pages (header, marges, image, ...)
 \newcommand{\fairemarges}{
@@ -67,11 +115,13 @@
 }
 
 % Créer la page de garde
-\newcommand{\fairepagedegarde}{
+\renewcommand{\maketitle}{
+    \fairemarges
     \begin{titlepage}
-    
+    \renewcommand{\baselinestretch}{1}
+
     \centering %Centraliser le contenu
-    
+
     % Logo Entreprise x ecole
     \begin{figure}
         \begin{subfigure}{.5\textwidth}
@@ -83,71 +133,74 @@
             \includegraphics[width=0.6\textwidth]{logos/partenaire_strategique_imt.png}\par\vspace{1cm} %%
         \end{subfigure}
     \end{figure}
-    
+
     \vspace{0.5cm}
-    {\scshape \intitule \par} 
+    {\scshape \subtitle \par}
     \vspace{0.5cm}
-    
+
     % Titre du rapport
     \rule{\linewidth}{0.2 mm} \\[0.4 cm]
-    {\Large\bfseries \titre \par} \
+    {\Large\bfseries \@title \par} \
     \rule{\linewidth}{0.2 mm} \\[1.0 cm]
-    
+
     % Nom de l'étudiant
-    {\eleve \par} 
+    {\@author \par}
     \vspace{1.0cm}
-    
+
     % Promotion
-    {\scshape Promotion \promo \par} 
+    {\scshape Promotion \promo \par}
     \vspace{1.0cm}
-    
+
     % Parcours de l'étudiant
-    {\scshape \filiere \\ \master \par} 
+    {\scshape \filiere \\ \master \par}
     \vspace{1cm}
-    
+
     % Année universitaire
-    {\large \annee \par} 
+    {\large \academicyear{} \par}
     \vspace{1cm}
-    
+
     % Dates
-    {\large \dates \par} 
+    {\large \dates \par}
     \vspace{1.5cm}
-    
+
     % Bas de page
     \begin{minipage}{0.4\textwidth}
-    	\begin{flushleft} 
-    	\emph{\textbf{Organisme d'accueil}}\\ 
+        \begin{flushleft}
+        \emph{\textbf{Organisme d'accueil}}\\
             \text{\nomentreprise}\\
-            \includegraphics[width=0.4\textwidth]{\logoentreprise} \\ 
-    	\end{flushleft}
+            \includegraphics[width=0.4\textwidth]{\logoentreprise} \\
+        \end{flushleft}
     \end{minipage}
     ~
     \begin{minipage}{0.4\textwidth}
-    	\begin{flushright} 
-    	\emph{\textbf{Tuteur école :}} \\
-    	 \tuteurecole \\
-    	\end{flushright}
-        \begin{flushright} 
-    	\emph{\textbf{Tuteur entreprise :}} \\
-    	 \tuteurentreprise \\
-    	\end{flushright}
+        \begin{flushright}
+        \emph{\textbf{Tuteur école :}} \\
+        \textsc{\tuteurecole{}} \\
+        \tuteurecolemail{}
+        \end{flushright}
+        \begin{flushright}
+        \emph{\textbf{Tuteur entreprise :}} \\
+        \textsc{\tuteurentreprise} \\
+        \tuteurentreprisemail
+        \end{flushright}
     \end{minipage}\\[2cm]
-    
+
     \vfill
-    	
-    
+
+
     \end{titlepage}
     \newpage
+    \pagenumbering{roman}
+    \justify
 }
 
-% Ajuste l'affichage de la table des matières
 \renewcommand{\thesection}{}
 \renewcommand{\thesubsection}{\Roman{subsection}.}
 \renewcommand{\thesubsubsection}{\Roman{subsection}.\arabic{subsubsection}.}
 
-\newcommand{\tabledematieres}{
-    \tableofcontents
-    \newpage
+\newcommand{\toc}{
+  \tableofcontents
+  \newpage
 }
 
 % créer des commandes simples pour l'affichage d'image
@@ -170,3 +223,7 @@
         \end{minipage}%
     \end{center}
 }
+
+% Formatting
+
+\renewcommand{\baselinestretch}{1.3}
