@@ -8,77 +8,46 @@
 
 %----------- Document ---------
 
-\begin{document}
 
-\pagenumbering{roman} % On numerote le début du rapport en chiffres romains
+% Obligatoire
 
-%----------- Informations du rapport ---------
+\title{Titre du rapport}
+\subtitle{Mémoire de stage de 2ème année}
 
-% Lien vers le logo de l'entreprise
-\logoentreprise{logos/google.png}
-% Nom de l'entreprise
-\nomentreprise{Google}
-
-% Titre du rapport
-\titre{Titre du rapport}
-\intitule{Mémoire de stage de 2ème année}
-
-% Pour le bas de la page
-\trigrammemention{TPS}
-
-% Nom de la filière
+\author{NOM Prénom}
 \filiere{Filière Informatique et réseau}
 \master{Science des données et systèmes complexes}
-
-% Votre nom
-\eleve{NOM Prénom}
-
-% La promo
 \promo{2024}
 
-% L'année universitaire en cours
-\annee{2022/2023}
+\nomentreprise{Google}
+\logoentreprise{logos/google.png}
+\tuteurentreprise{NOM Prénom}
+\tuteurentreprisemail{foo.foo@foo.foo}
 
-% Les dates du stage
-\dates{22/05/2023 - 13/08/2023}
 
-% Le nom et adresse du tuteur école
-\tuteurecole{
-    \textsc{HABET Adlane} \\
-    habed@unistra.fr
-}
+\trigrammemention{TPS}
 
-% Le nom et adresse du tuteur entreprise
-\tuteurentreprise{
-    \textsc{NOM Prénom} \\
-    adresse.mail@turlutte.io
-}
+% Optionnal
 
-%----------- Initialisation -------------------
-        
-\fairemarges % Afficher les marges
-\fairepagedegarde % Créer la page de garde
+%\tuteurecole{NOM Prénom}
+%\tuteurecolemail{foo.foo@foo.foo}
+%\academicyear{2025 - 2026}
 
-\justify % La suite du document sera en justifié au carré
 
-%----------- Remerciements -------------------
+\begin{document}
+
+\maketitle
 
 \section{Remerciements}
 \input{Chapters/remerciements}
 \newpage
 
-%----------- Abstract -------------------
 
 \input{Chapters/abstract}
 \newpage
 
-%------------ Table des matières ----------------
+\toc % Créer la table de matières
 
-\tabledematieres % Créer la table de matières
-
-%------------ Corps du rapport ----------------
-
-\pagenumbering{arabic} % On numerote maintenant en chiffres arabes
 
 %------------ Introduction ----------------
 
