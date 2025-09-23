@@ -56,7 +56,7 @@
 %\newcommand{\annee}[1]{\renewcommand{\annee}{#1}}
 \providecommand{\tuteurecole}[1]{
   \ifstrempty{#1}{
-    HABET Aldane
+    HABET Adlane
   }{
   \renewcommand{\tuteurecole}{#1}
 }
